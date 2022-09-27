@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -13,16 +14,10 @@ class UserController extends Controller
         return view('users.index', compact('users'));
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        //dd($_POST['gender']);
-        $user = new User;
-        $user->name = request('name');
-        $user->email = request('email');
-        $user->username = request('username');
-        $user->gender = request('gender');
-        $user->password = bcrypt(request('password'));
-        $user->save();
+        User::create($request->all());
+
 
         return redirect("index.php");
     }
