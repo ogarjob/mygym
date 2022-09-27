@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\UserController;
+
+use App\Models\User;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,13 +19,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return "<h1>Hello World</>";
-});
-
-Route::get('/register', function () {
-    return "<h1>My Register Page</h1>";
+    return view('index');
 });
 
 Route::get('/login', function () {
-    return view('welcome', ['name' => 'Newton']);
+    return view('auth.login');
 });
+
+Route::get('/signup', function () {
+    return view('auth.signup');
+});
+
+
+Route::get('/users', [UserController::class, 'index']);
+
+Route::post('/signup', [UserController::class, 'store']);
+
