@@ -46,8 +46,8 @@ class User extends Authenticatable
     ];
 
 
-    public function password(): Attribute
-    {
-        return Attribute::set(fn ($value) => bycrpt($value));
-    }
+    // public function password(): Attribute
+    // {
+    //     return Attribute::set(fn ($value) => bycrpt($value));
+    // }
 }
