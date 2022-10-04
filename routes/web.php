@@ -39,6 +39,13 @@ Route::get('/register', function () {
 
 Route::get('/users', [UserController::class, 'index']);
 
+// Route::get('/users/profile', [UserController::class, 'show']);
+
+Route::get('/{user}'/*'/users/profile/{user}'*/, function(User $user){
+
+    return view('users.profile', ['user' => $user]);
+});
+
 Route::post('/register', [UserController::class, 'store']);
 
 Route::post('/login', [AuthController::class, 'authenticate']);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -18,7 +19,11 @@ class UserController extends Controller
     {
         User::create($request->all());
 
-
-        return redirect("index.php");
+        return redirect("dashboard");
     }
+
+    // public function show(User $user)
+    // {
+    //     return view('users.profile', ['user' => $user]);
+    // }
 }
