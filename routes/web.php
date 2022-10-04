@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
 
+use App\Http\Controllers\AuthController;
+
 use App\Models\User;
 
 
@@ -18,20 +20,27 @@ use App\Models\User;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+// Route::get('/', function () {
+//     return view('index');
+// });
+
+Route::get('/dashboard', function () {
+    return view('users.dashboard');
 });
 
 Route::get('/login', function () {
     return view('auth.login');
 });
 
-Route::get('/signup', function () {
-    return view('auth.signup');
+Route::get('/register', function () {
+    return view('auth.register');
 });
 
 
 Route::get('/users', [UserController::class, 'index']);
 
-Route::post('/signup', [UserController::class, 'store']);
+Route::post('/register', [UserController::class, 'store']);
+
+Route::post('/login', [AuthController::class, 'authenticate']);
+
 
