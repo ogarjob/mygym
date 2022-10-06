@@ -42,6 +42,8 @@ Route::get('/users', [UserController::class, 'index'])->middleware('auth');
 
 Route::get('/{users}', [UserController::class, 'show']);
 
+Route::get('/users/delete/{users}', [UserController::class, 'destroy']);
+
 Route::post('/{users}', [UserController::class, 'update']);
 
 // Route::get('/{user}'/*'/users/profile/{user}'*/, function(User $user){
