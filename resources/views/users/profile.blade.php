@@ -93,8 +93,10 @@
                     
                         <div class="tab-pane fade show active" id="update-tab-pane" role="tabpanel" aria-labelledby="update-tab" tabindex="0">
 
-                            <form class="container" method="POST" action=" ">
+                            <form class="container" method="POST" action="{{ url($user->id) }}">
                                
+                                {{ csrf_field() }}
+
                                 <div class="row">
 
                                     <div class="mb-3 col-md-6">

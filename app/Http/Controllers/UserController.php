@@ -22,8 +22,30 @@ class UserController extends Controller
         return redirect("dashboard");
     }
 
+    public function show($id)
+    {
+        $user = User::find($id);
+        return view('users.profile', ['user' => $user]);
+    }
+
     // public function show(User $user)
     // {
     //     return view('users.profile', ['user' => $user]);
     // }
+    
+    public function update($id)
+    {
+        $user = User::find($id);
+        
+        // $user->update([$_POST]);
+        
+        $user->update([
+            'name' => $_POST['name'],
+            'email' => $_POST['email'],
+            'username' => $_POST['username'],
+            'gender' => $_POST['gender']
+        ]);
+
+        return redirect($id);
+    }
 }

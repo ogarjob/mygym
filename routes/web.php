@@ -24,10 +24,6 @@ use App\Models\User;
 //     return view('index');
 // });
 
-Route::get('/dashboard', function () {
-    return view('users.dashboard');
-});
-
 Route::get('/login', function () {
     return view('auth.login');
 });
@@ -36,15 +32,23 @@ Route::get('/register', function () {
     return view('auth.register');
 });
 
+Route::get('/dashboard', function () {
 
-Route::get('/users', [UserController::class, 'index']);
+    return view('users.dashboard');
 
-// Route::get('/users/profile', [UserController::class, 'show']);
+})->middleware('auth');
 
-Route::get('/{user}'/*'/users/profile/{user}'*/, function(User $user){
+Route::get('/users', [UserController::class, 'index'])->middleware('auth');
 
-    return view('users.profile', ['user' => $user]);
-});
+Route::get('/{users}', [UserController::class, 'show']);
+
+Route::post('/{users}', [UserController::class, 'update']);
+
+// Route::get('/{user}'/*'/users/profile/{user}'*/, function(User $user){
+
+//     return view('users.profile', ['user' => $user]);
+
+// })->middleware('auth');
 
 Route::post('/register', [UserController::class, 'store']);
 
