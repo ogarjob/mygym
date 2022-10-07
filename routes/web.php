@@ -26,11 +26,15 @@ use App\Models\User;
 
 Route::get('/login', function () {
     return view('auth.login');
-});
+})->name('login');
 
 Route::get('/register', function () {
     return view('auth.register');
 });
+
+Route::post('/register', [UserController::class, 'store']);
+
+Route::post('/login', [AuthController::class, 'authenticate']);
 
 Route::get('/dashboard', function () {
 
@@ -40,11 +44,11 @@ Route::get('/dashboard', function () {
 
 Route::get('/users', [UserController::class, 'index'])->middleware('auth');
 
-Route::get('/{users}', [UserController::class, 'show']);
+Route::get('/{user}', [UserController::class, 'show'])->middleware('auth');
 
-Route::get('/users/delete/{users}', [UserController::class, 'destroy']);
+Route::get('/users/delete/{user}', [UserController::class, 'destroy']);
 
-Route::post('/{users}', [UserController::class, 'update']);
+Route::post('/{user}', [UserController::class, 'update']);
 
 // Route::get('/{user}'/*'/users/profile/{user}'*/, function(User $user){
 
@@ -52,8 +56,5 @@ Route::post('/{users}', [UserController::class, 'update']);
 
 // })->middleware('auth');
 
-Route::post('/register', [UserController::class, 'store']);
-
-Route::post('/login', [AuthController::class, 'authenticate']);
 
 
