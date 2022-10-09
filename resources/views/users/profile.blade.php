@@ -133,8 +133,8 @@
                                         <label for="gender" class="form-label">Gender</label>
                                         
                                         <select class="form-control" name="gender" id="gender">
-                                            <option value="M">male</option>
-                                            <option value="F">female</option>
+                                            <option value="M">Male</option>
+                                            <option value="F">Female</option>
                                         </select>
 
                                         <script>

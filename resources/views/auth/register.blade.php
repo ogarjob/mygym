@@ -51,36 +51,55 @@
                                 
                                 <div class="form-group">
                                 
-                                    <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="Full Name" name="name" required>
-                                
-                                </div>
-                                
-                                <div class="form-group">
-                                
-                                    <input type="email" class="form-control form-control-user" placeholder="Email Address" name="email" required>
-                                
-                                </div>
-
-                                <div class="form-group">
-                                
-                                    <input type="text" class="form-control form-control-user" placeholder="Userame" name="username" required>
-                                
-                                </div>
-
-                               <!--  <div class="form-group">
-                                    <select class="form-control form-control-user text-secondary" name="gender" id="gender" required>
-                                        <option selected disabled>Gender</option>
-                                        <option value="M">male</option>
-                                        <option value="F">female</option>
-                                        <script>
-                                            document.querySelector('#gender').value = "<?//= old('gender', $user->gender)?>"
-                                        </script>
-                                    </select>
-                                </div> -->
-                                
-                                <div class="form-group relative flex items-center bg-gray-100 rounded-xl">
+                                    <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="Full Name" name="name" value="{{ old('name') }}" required>
                                     
-                                    <select class="form-control form-control-user flex-1 appearance-none bg-transparent py-2 pl-3 pr-9 text-sm" name="gender" required>
+                                    @error('name')
+                                        <p class="text-danger text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+
+                                </div>
+                                
+                                <div class="form-group">
+                                
+                                    <input type="email" class="form-control form-control-user" placeholder="Email Address" name="email" value="{{ old('email') }}" required>
+                                
+                                    @error('email')
+                                        <p class="text-danger text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+
+                                </div>
+
+                                <div class="form-group">
+                                
+                                    <input type="text" class="form-control form-control-user" placeholder="Userame" name="username" value="{{ old('username') }}" required>
+
+                                    @error('username')
+                                        <p class="text-danger text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+
+                                </div>
+
+                                <div class="form-group">
+                                    <select class="form-control text-secondary" name="gender" id="gender" required>
+                                        <option selected disabled>Gender</option>
+                                        <option value="M">Male</option>
+                                        <option value="F">Female</option>
+                                        @if (old('gender'))
+                                            <script>
+                                                document.querySelector('#gender').value = "<?= old('gender')?>"
+                                            </script>
+                                        @endif
+                                    </select>
+
+                                    @error('gender')
+                                        <p class="text-danger text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+
+                                </div>
+                                
+                                <!-- <div class="form-group relative flex items-center bg-gray-100 rounded-xl">
+                                    
+                                    <select class="form-control form-control-user flex-1 appearance-none bg-transparent py-2 pl-3 pr-9 text-sm" name="gender" id="gender" required>
                                         <option value="category" disabled selected>Gender</option>
                                         <option value="M">Male</option>
                                         <option value="F">Female</option>
@@ -92,8 +111,10 @@
                                             <path fill="#222" d="M13.854 7.224l-3.847 3.856 3.847 3.856-1.184 1.184-5.04-5.04 5.04-5.04z"></path>
                                         </g>
                                     </svg>
-                                
-                                </div>
+                                    <script>
+                                        document.querySelector('#gender').value = "<?//= old('gender')?>"
+                                    </script>
+                                </div> -->
 
                                 <div class="form-group row">
                                 
@@ -110,7 +131,11 @@
                                             id="exampleRepeatPassword" placeholder="Repeat Password" name="repeatPwd" required>
                                 
                                     </div>
-                                
+
+                                    @error('password')
+                                        <p class="text-danger text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+
                                 </div>
                        
                                 <button class="btn btn-primary btn-user btn-block">

@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function create()
+    {
+        return view('auth.register');
+    }
+
     public function index()
     {
         $users = User::all();
@@ -15,9 +20,19 @@ class UserController extends Controller
         return view('users.index', compact('users'));
     }
 
-    public function store(Request $request)
+    public function store()
     {
-        User::create($request->all());
+        $user = request()->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|max:255|unique:users,email',
+            'username' => 'required|max:255|min:3|unique:users,username',
+            'gender' => 'required',
+            'password' => 'required|max:255|min:3',
+        ]);
+
+        User::create($user);
+
+        session()->flash('success', 'Your account has been created.');
 
         return redirect("dashboard");
     }
