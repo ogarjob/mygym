@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function store()
     {
-        $user = request()->validate([
+        $attributes = request()->validate([
             'name' => 'required|max:255',
             'email' => 'required|max:255|unique:users,email',
             'username' => 'required|max:255|min:3|unique:users,username',
@@ -30,11 +30,9 @@ class UserController extends Controller
             'password' => 'required|max:255|min:3',
         ]);
 
-        User::create($user);
-
-        session()->flash('success', 'Your account has been created.');
-
-        return redirect("dashboard");
+        $user = User::create($attributes);
+        // auth()->login($user);
+        return redirect('login')->with('success', 'Your account has been Registered. Use your details to login');
     }
     
     public function show(User $user)
@@ -46,12 +44,12 @@ class UserController extends Controller
     {        
         $user->update(request()->all());
 
-        return redirect($user->id);
+        return redirect($user->id)->with('success', 'Update was successful');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return back();
+        return redirect('users')->with('success', 'User has been deleted');
     }
 }

@@ -14,9 +14,9 @@ Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
-Route::get('/register', [UserController::class, 'create']);
+Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 
-Route::post('/register', [UserController::class, 'store']);
+Route::post('/register', [UserController::class, 'store'])->middleware('guest');
 
 Route::post('/login', [AuthController::class, 'authenticate']);
 
