@@ -53,20 +53,28 @@
                     
                                     </div>
                     
-                                    <form action="login" method="POST" class="user">
+                                    <form action="{{ url('login') }}" method="POST" class="user">
                                         
-                                        {{ csrf_field() }}
-
+                                        @csrf
+                                        
                                         <div class="form-group">
                     
-                                            <input type="email" class="form-control form-control-user" placeholder="Enter Email Address..." name="email" required>
-                    
+                                            <input type="email" class="form-control form-control-user" placeholder="Enter Email Address..." name="email" value="{{ old('email') }}" required>
+
+                                            @error('email')
+                                                <p class="text-danger text-xs mt-1">{{ $message }}</p>
+                                            @enderror
+
                                         </div>
                     
                                         <div class="form-group">
                     
                                             <input type="password" class="form-control form-control-user" placeholder="Password" name="password" required>
-                    
+                                            
+                                            @error('password')
+                                                <p class="text-danger text-xs mt-1">{{ $message }}</p>
+                                            @enderror
+
                                         </div>
                     
                                         <div class="form-group">
@@ -103,7 +111,7 @@
                                     </div>
                     
                                     <div class="text-center">
-                                        <a class="small" href="register">Create an Account!</a>
+                                        <a class="small" href="{{ route('users.create') }}">Create an Account!</a>
                                     </div>
                     
                                 </div>

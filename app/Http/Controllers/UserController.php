@@ -31,8 +31,8 @@ class UserController extends Controller
         ]);
 
         $user = User::create($attributes);
-        // auth()->login($user);
-        return redirect('login')->with('success', 'Your account has been Registered. Use your details to login');
+
+        return redirect('login')->with('message', 'Your account has been Registered. Use your details to login');
     }
     
     public function show(User $user)
@@ -42,14 +42,20 @@ class UserController extends Controller
     
     public function update(User $user)
     {        
-        $user->update(request()->all());
+        request()->validate([
+            'email'     => 'email',
+            'username'  => 'alpha_num'
+        ]);
 
-        return redirect($user->id)->with('success', 'Update was successful');
+        $user->update(request()->all());
+        
+        return back()->with('message', 'Update was successful');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect('users')->with('success', 'User has been deleted');
+
+        return redirect('users')->with('message', 'User has been deleted');
     }
 }

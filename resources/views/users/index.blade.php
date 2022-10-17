@@ -48,7 +48,7 @@
 								
 								<td><a class="btn btn-primary" href="{{ url("/{$user->id}") }}">Edit</a> </td>
 
-								<td><a class="btn btn-danger" href="<?= url("/users/delete/{$user->id}") ?>" onclick=" return confirm('Are you sure you want to delete')">delete</a> </td>
+								<td><a class="btn btn-danger" href="<?= url("/users/delete/{$user->id}") ?>" onclick=" return confirm('Are you sure you want to delete')">Delete</a> </td>
 								
 							</tr>
 						

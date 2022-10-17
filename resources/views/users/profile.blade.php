@@ -45,12 +45,22 @@
                             <div class="col-sm-4">
                                 <div class="text-center mt-sm-0 mt-3 text-sm-end">
 
-                                    <form action="#" id="form-photo">
-                                        <input type="hidden" name="_method" value="put">
+                                    <form action="{{ route('users.update', $user->id) }}" id="form-photo" method="POST" enctype="multipart/form-data">
+                                        
+                                        @csrf
+                                        
+                                        <!-- <input type="hidden" name="_method" value="put"> -->
+                                        
                                         <label for="photo" class="btn btn-light"> Change Photo </label>
-                                        <input class="form-control" type="file" accept="image/jpeg,image/png"
-                                               name="photo" id="photo" style="display: none;">
+                                        
+                                        <input class="form-control" type="file" 
+                                            accept="image/jpg, image/jpeg, image/png"
+                                            name="photo" id="photo"    
+                                            style="display: none;"
+                                            onchange="document.querySelector('#form-photo').submit()"
+                                        >
                                     </form>
+                                    
                                 </div>
                             </div> <!-- end col-->
                         </div> <!-- end row -->
@@ -93,9 +103,9 @@
                     
                         <div class="tab-pane fade show active" id="update-tab-pane" role="tabpanel" aria-labelledby="update-tab" tabindex="0">
 
-                            <form class="container" method="POST" action="{{ url($user->id) }}">
+                            <form class="container" method="POST" action="{{ route('users.update', $user->id) }}">
                                
-                                {{ csrf_field() }}
+                                @csrf
 
                                 <div class="row">
 
@@ -105,6 +115,9 @@
                                         
                                         <input type="text" class="form-control" name="name" value="<?= $user->name ?>" id="name">
                                         
+                                        @error('name')
+                                            <p class="text-danger text-xs mt-1">{{ $message }}</p>
+                                        @enderror
                                     </div>
 
                                     <div class="mb-3 col-md-6">
@@ -112,8 +125,10 @@
                                         <label for="email" class="form-label">Email address</label>
                                         
                                         <input type="email" class="form-control" name="email" value="<?= $user->email ?>" id="email" aria-describedby="emailHelp">
-                                        
-                                        <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                                       
+                                        @error('email')
+                                            <p class="text-danger text-xs mt-1">{{ $message }}</p>
+                                        @enderror
 
                                     </div>
 
@@ -125,6 +140,10 @@
                                         <label for="username" class="form-label">Username</label>
                                         
                                         <input type="text" class="form-control"  name="username" value="<?= $user->username ?>" id="username">
+
+                                        @error('username')
+                                            <p class="text-danger text-xs mt-1">{{ $message }}</p>
+                                        @enderror
                                         
                                     </div>
 
@@ -166,15 +185,17 @@
 
                         <div class="tab-pane fade" id="password-tab-pane" role="tabpanel" aria-labelledby="password-tab" tabindex="0">
 
-                            <form class="container"  method="POST" action="#" >
-                                    
+                            <form class="container"  method="POST" action="{{ route('users.update', $user->id) }}" >
+                                
+                                @csrf
+
                                 <div class="row">
                                     
                                     <div class="mb-3 col-md-6">
 
                                         <label for="new-password" class="form-label">New Password</label>
                                         
-                                        <input type="password" class="form-control" name="new-password" placeholder="Create a new password" id="new-password" required>
+                                        <input type="password" class="form-control" name="password" placeholder="Create a new password" id="new-password" required>
                                 
                                     </div>
 
@@ -197,12 +218,12 @@
 
                             <div class=" mt-3 text-center w-50 mx-auto container">
                         
-                                <?php// if (passwordError()) : ?>
+                                @error ('password')
                                     
-                                    <p class="alert alert-danger"><?//= passwordError() ?></p>
+                                    <p class="alert alert-danger">{{ $message }}</p>
                                 
-                                <?php// endif ?>
-
+                                @enderror
+                                
                             </div>
 
                         </div>

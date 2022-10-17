@@ -10,35 +10,23 @@ use App\Models\User;
 //     return view('index');
 // });
 
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
+Route::middleware('guest')->group(function () {
+    Route::post('/register', [UserController::class, 'store'])  ->name('users.store');
+    Route::get('/register', [UserController::class, 'create'])  ->name('users.create');
+    Route::view('/login', 'auth.login')                         ->name('login');
+    Route::post('/login', [AuthController::class, 'authenticate']);
+});
+Route::middleware('auth')->group(function () {
+    Route::view('/dashboard', 'users.dashboard');
+    Route::get('/users',                [UserController::class, 'index'])   ->name('users.index');
+    Route::get('/users/{user}',         [UserController::class, 'show'])    ->name('users.show');
+    Route::post('/users/{user}',        [UserController::class, 'update'])  ->name('users.update');
+    Route::get('/users/delete/{user}',  [UserController::class, 'destroy']) ->name('users.destroy');
+    Route::get('/logout', [AuthController::class, 'destroy']);
 
-Route::get('/register', [UserController::class, 'create'])->middleware('guest');
+});
 
-Route::post('/register', [UserController::class, 'store'])->middleware('guest');
 
-Route::post('/login', [AuthController::class, 'authenticate']);
-
-Route::get('/dashboard', function () {
-
-    return view('users.dashboard');
-
-})->middleware('auth');
-
-Route::get('/users', [UserController::class, 'index'])->middleware('auth');
-
-Route::get('/{user}', [UserController::class, 'show'])->middleware('auth');
-
-Route::get('/users/delete/{user}', [UserController::class, 'destroy']);
-
-Route::post('/{user}', [UserController::class, 'update']);
-
-// Route::get('/{user}'/*'/users/profile/{user}'*/, function(User $user){
-
-//     return view('users.profile', ['user' => $user]);
-
-// })->middleware('auth');
 
 
 
