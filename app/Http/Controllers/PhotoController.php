@@ -12,7 +12,9 @@ class PhotoController extends Controller
     {        
         $path = Storage::putFile('uploads', request()->file('photo'));
 
-        $user->update(['photo' => $path]);
+        // $user->update(['photo' => $path]);
+        
+        $affected = \DB::table('users')->where('id', $user->id)->update(['photo' => $path]);
         
         return back()->with('message', 'Update was successful');
     }
