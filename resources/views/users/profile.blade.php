@@ -45,7 +45,7 @@
                             <div class="col-sm-4">
                                 <div class="text-center mt-sm-0 mt-3 text-sm-end">
 
-                                    <form action="{{ route('users.update', $user->id) }}" id="form-photo" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('photo.update', $user->id) }}" id="form-photo" method="POST" enctype="multipart/form-data">
                                         
                                         @csrf
                                         
@@ -61,6 +61,9 @@
                                         >
                                     </form>
                                     
+                                    @error ('photo')
+                                        <p class="text-danger text-xs mt-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div> <!-- end col-->
                         </div> <!-- end row -->
