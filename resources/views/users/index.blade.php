@@ -46,7 +46,7 @@
 
 								<td> <?= $user->username ?> </td>
 								
-								<td><a class="btn btn-primary" href="{{ url("/{$user->id}") }}">Edit</a> </td>
+								<td><a class="btn btn-primary" href="{{ route('users.show', $user->id) }}">Edit</a> </td>
 
 								<td><a class="btn btn-danger" href="<?= url("/users/delete/{$user->id}") ?>" onclick=" return confirm('Are you sure you want to delete')">Delete</a> </td>
 								

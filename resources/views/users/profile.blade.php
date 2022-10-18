@@ -17,7 +17,7 @@
                                     <div class="col-auto">
                                         <div class="avatar-lg" id="div-avatar">
                                        
-                                            <img class="rounded-circle img-thumbnail" width="150px" height="150px" src="https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-3-512.png" style="object-fit: cover; object-position: 50% 20%;">
+                                            <img class="rounded-circle img-thumbnail" src="{{ $user->photo() }}" style="object-fit: cover; object-position: 50% 20%; width: 150px; height: 150px;">
 
                                         </div>
                                     </div>
