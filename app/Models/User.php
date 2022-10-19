@@ -60,4 +60,28 @@ class User extends Authenticatable
 
         return '../../storage/app/'.$this->photo;
     }
+ 
+
+    public function isAdmin()
+	{
+		return $this->is_admin;
+	}
+
+
+	public function isNotAdmin()
+	{
+		return ! $this->isAdmin();
+	}
+
+
+	public function isSuperAdmin()
+	{
+		return $this->id == 16;
+	}
+
+
+	public function isNotSuperAdmin()
+	{
+		return !$this->isSuperAdmin();
+	}
 }

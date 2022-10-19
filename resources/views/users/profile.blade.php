@@ -61,9 +61,6 @@
                                         >
                                     </form>
                                     
-                                    @error ('photo')
-                                        <p class="text-danger text-xs mt-1">{{ $message }}</p>
-                                    @enderror
                                 </div>
                             </div> <!-- end col-->
                         </div> <!-- end row -->
@@ -174,16 +171,6 @@
                             
                             </form>
 
-                            <!-- <div class=" mt-3 text-center w-50 mx-auto container">
-                        
-                                <?php// if (error()) : ?>
-                                    
-                                    <p class="alert alert-danger"><?//= error() ?></p>
-                                
-                                <?php// endif ?>
-
-                            </div> -->
-
                         </div>
 
                         <div class="tab-pane fade" id="password-tab-pane" role="tabpanel" aria-labelledby="password-tab" tabindex="0">
@@ -233,7 +220,29 @@
                     
                         <div class="tab-pane fade container" id="advanced-tab-pane" role="tabpanel" aria-labelledby="advanced-tab" tabindex="0">
                         
-                                <?php// if($user->isAdmin() && $user->isNotSuperAdmin()): ?>
+                                @if ($user->isAdmin() && $user->isNotSuperAdmin())
+
+                                    <div class="card mb-5 text-center">
+                                    
+                                        <div class="card-body">
+                                    
+                                            <h5 class="card-title">Change User Type</h5>
+                                    
+                                            <p>
+                                                Click on the button below to change the User type
+                                            </p>
+
+                                            <form action="{{ route('users.update', $user->id) }}" method="POST" >                                                
+                                                @csrf
+                                                <input type="hidden" name="is_admin" value="0">
+                                                <button class="btn btn-warning btn-sm">Dismiss As Admin</button>
+                                            </form>
+                                            
+                                        </div>
+
+                                    </div>
+                                    
+                                @elseif ($user->isNotAdmin() && Auth::user('is_admin'))
 
                                     <div class="card mb-5 text-center">
                                     
@@ -245,35 +254,16 @@
                                                 Click on the button below to change the User type
                                             </p>
                                     
-                                            <a href="<?//= url('/users/dismiss-admin?id='. $user->id); ?>" class="btn btn-warning btn-sm">
-                                                Dismiss As Admin
-                                            </a>
+                                            <form action="{{ route('users.update', $user->id) }}" method="POST" >                                                
+                                                @csrf
+                                                <input type="hidden" name="is_admin" value="1">
+                                                <button class="btn btn-primary btn-sm">Make Admin</button>
+                                            </form>
                                             
-                                            </p>
-                                        </div>
-                                    </div>
-                                    
-                                <?php// elseif ($user->isNotAdmin() && user('is_admin')): ?>
-
-                                    <div class="card mb-5 text-center">
-                                    
-                                        <div class="card-body">
-                                    
-                                            <h5 class="card-title">Change User Type</h5>
-                                    
-                                            <p>
-                                                Click on the button below to change the User type
-                                            </p>
-                                    
-                                            <a href="<?//= url('/users/make-admin?id='. $user->id); ?>" class="btn btn-primary btn-sm">
-                                                Make Admin
-                                            </a>
-                                            
-                                            </p>
                                         </div>
                                     </div>
 
-                                <?php// endif; ?>	
+                                @endif	
 
                                 <div class="card mb-5 text-center">
                                 
@@ -285,7 +275,7 @@
                                             Click on the button below to terminate your membership. Your account will no longer exist and you will permanently lose your privilages as a user. 
                                         </p>
                                 
-                                        <a href="<?//= url('/users/delete?id='. $user->id); ?>" class="btn btn-danger btn-sm"  onclick=" return confirm('Are you sure you want to delete this account?')">
+                                        <a href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger btn-sm"  onclick=" return confirm('Are you sure you want to delete this account?')">
                                             Delete Account
                                         </a>
                                         

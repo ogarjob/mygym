@@ -37,9 +37,11 @@ class UserController extends Controller
     
     public function show(User $user)
     {
-        // dd($user->id);
-        if ($user->id != Auth::id() && ! Auth::user('is_admin')) exit('This action is unauthorized');
-
+        // dd(Auth::user();
+        if ($user->id != Auth::id() && ! Auth::user('is_admin')['is_admin']) 
+        {    
+            exit('This action is unauthorized');
+        }
         return view('users.profile', ['user' => $user]);
     }
     
