@@ -47,10 +47,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
     public function password(): Attribute
     {
         return Attribute::set(fn ($value) => bcrypt($value));
     }
+
 
     public function photo()
     {
@@ -58,7 +60,7 @@ class User extends Authenticatable
 			return asset('img/undraw_profile.svg');
 		}
 
-        return asset('../storage/app/'.$this->photo);
+        return asset($this->photo);
     }
  
 
