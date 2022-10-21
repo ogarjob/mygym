@@ -55,10 +55,10 @@ class User extends Authenticatable
     public function photo()
     {
         if (!$this->photo) {
-			return 'https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-3-512.png';
+			return asset('img/undraw_profile.svg');
 		}
 
-        return '../../storage/app/'.$this->photo;
+        return asset('../storage/app/'.$this->photo);
     }
  
 
