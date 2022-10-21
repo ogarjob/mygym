@@ -242,7 +242,7 @@
 
                                     </div>
                                     
-                                @elseif ($user->isNotAdmin() && Auth::user('is_admin'))
+                                @elseif ($user->isNotAdmin() && Auth::user()->is_admin)
 
                                     <div class="card mb-5 text-center">
                                     

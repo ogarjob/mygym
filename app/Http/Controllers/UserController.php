@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -37,11 +38,8 @@ class UserController extends Controller
     
     public function show(User $user)
     {
-        // dd(Auth::user();
-        if ($user->id != Auth::id() && ! Auth::user('is_admin')['is_admin']) 
-        {    
-            exit('This action is unauthorized');
-        }
+        if ($user->id != Auth::id() && ! Auth::user()->is_admin) abort(403);
+
         return view('users.profile', ['user' => $user]);
     }
     
