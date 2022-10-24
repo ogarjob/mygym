@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('dashboard') }}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
@@ -12,8 +12,8 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-        <a class="nav-link" href="dashboard">
+    <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ url('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -61,6 +61,22 @@
         </div>
     </li>
 
+    <!-- Nav Item - Tables -->
+    @admin
+        <li class="nav-item {{ request()->is('users') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('users.index') }}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Users</span></a>
+        </li>
+    @endadmin
+
+    <!-- Logout -->
+    <li class="nav-item">
+    <a class="nav-link" href="{{ url('logout') }}">
+        <i class="fas fa-sign-out-alt fa-sm fa-fw"></i>
+        <span>Logout</span></a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -95,13 +111,6 @@
         <a class="nav-link" href="charts.html">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Charts</span></a>
-    </li>
-
-    <!-- Nav Item - Tables -->
-    <li class="nav-item active">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
     </li>
 
     <!-- Divider -->

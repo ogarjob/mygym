@@ -35,24 +35,32 @@
 	                </tfoot>
 	                <tbody>
 
-						<?php foreach ($users as $user): ?>
+						@foreach ($users as $user)
 
 							<tr>
+
 								<td> 
-									<?= $user->name ?> 
+									{{ $user->name }} 
 								</td>
 
-								<td> <?= $user->email ?> </td>
+								<td> {{ $user->email }} </td>
 
-								<td> <?= $user->username ?> </td>
+								<td> {{ $user->username }} </td>
 								
-								<td><a class="btn btn-primary" href="{{ route('users.show', $user->id) }}">Edit</a> </td>
+								<td><a class="btn btn-primary" href="{{ route('users.show', $user) }}">Edit</a> </td>
 
-								<td><a class="btn btn-danger" href="<?= url("/users/delete/{$user->id}") ?>" onclick=" return confirm('Are you sure you want to delete')">Delete</a> </td>
+								<td>
+									<form action="{{ route('users.destroy', $user) }}" method="POST">
+										@csrf
+										@method('DELETE')
+										<button class="btn btn-danger"  onclick=" return confirm('Are you sure you want to delete this account')">Delete</button>
+									</form>
+								 
+								</td>
 								
 							</tr>
 						
-						<?php endforeach; ?>
+						@endforeach
 
 					</tbody>
 
@@ -61,7 +69,4 @@
 	    </div>
 	</div>
 
-
 </x-layout>
-                   
-             

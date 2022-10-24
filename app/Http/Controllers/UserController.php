@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -28,7 +28,7 @@ class UserController extends Controller
             'email' => 'required|max:255|unique:users,email',
             'username' => 'required|max:255|min:3|unique:users,username',
             'gender' => 'required',
-            'password' => 'required|max:255|min:3',
+            'password' => 'required|confirmed|max:255|min:3',
         ]);
 
         $user = User::create($attributes);
@@ -38,7 +38,7 @@ class UserController extends Controller
     
     public function show(User $user)
     {
-        if ($user->id != Auth::id() && ! Auth::user()->is_admin) abort(403);
+        $this->authorize('view', $user);
 
         return view('users.profile', ['user' => $user]);
     }
@@ -46,11 +46,12 @@ class UserController extends Controller
     public function update(User $user)
     {        
         request()->validate([
-            'email'     => 'email',
-            'username'  => 'alpha_num'
+            'email'     => ['email', $unique = Rule::unique('users')->ignore($user)],
+            'username'  => ['alpha_num', $unique],
+            'password'  => ['confirmed']
         ]);
 
-        $user->update(request()->all());
+        $user->update(request()->except('password_confirmation'));
         
         return back()->with('message', 'Update was successful');
     }
@@ -59,6 +60,6 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return redirect('users')->with('message', 'User has been deleted');
+        return to_route('users.index')->with('message', 'User has been deleted');
     }
 }

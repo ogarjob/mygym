@@ -66,24 +66,12 @@ class User extends Authenticatable
 
     public function isAdmin()
 	{
-		return $this->is_admin;
+		return $this->type == 2;
 	}
 
 
-	public function isNotAdmin()
+	public function isMember()
 	{
 		return ! $this->isAdmin();
-	}
-
-
-	public function isSuperAdmin()
-	{
-		return $this->id == 16;
-	}
-
-
-	public function isNotSuperAdmin()
-	{
-		return !$this->isSuperAdmin();
 	}
 }

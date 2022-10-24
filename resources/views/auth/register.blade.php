@@ -18,9 +18,9 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    
+
 
 </head>
 
@@ -80,7 +80,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <select class="form-control text-secondary" name="gender" id="gender" required>
+                                    <select class="form-select text-secondary rounded-pill" name="gender" id="gender" required>
                                         <option selected disabled>Gender</option>
                                         <option value="M">Male</option>
                                         <option value="F">Female</option>
@@ -96,26 +96,7 @@
                                     @enderror
 
                                 </div>
-                                
-                                <!-- <div class="form-group relative flex items-center bg-gray-100 rounded-xl">
-                                    
-                                    <select class="form-control form-control-user flex-1 appearance-none bg-transparent py-2 pl-3 pr-9 text-sm" name="gender" id="gender" required>
-                                        <option value="category" disabled selected>Gender</option>
-                                        <option value="M">Male</option>
-                                        <option value="F">Female</option>
-                                    </select>
-
-                                    <svg class="transform -rotate-90 absolute pointer-events-none" style="right: 12px;" width="22" height="22" viewBox="0 0 22 22">
-                                        <g fill="none" fill-rule="evenodd">
-                                            <path stroke="#000" stroke-opacity=".012" stroke-width=".5" d="M21 1v20.16H.84V1z"></path>
-                                            <path fill="#222" d="M13.854 7.224l-3.847 3.856 3.847 3.856-1.184 1.184-5.04-5.04 5.04-5.04z"></path>
-                                        </g>
-                                    </svg>
-                                    <script>
-                                        document.querySelector('#gender').value = "<?//= old('gender')?>"
-                                    </script>
-                                </div> -->
-
+                          
                                 <div class="form-group row">
                                 
                                     <div class="col-sm-6 mb-3 mb-sm-0">
@@ -128,7 +109,7 @@
                                     <div class="col-sm-6">
                                 
                                         <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password" name="repeatPwd" required>
+                                            id="exampleRepeatPassword" placeholder="Repeat Password" name="password_confirmation" required>
                                 
                                     </div>
 
@@ -180,6 +161,7 @@
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>

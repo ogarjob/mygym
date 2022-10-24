@@ -17,32 +17,24 @@ class AuthController extends Controller
     public function authenticate(Request $request)
     {   
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
         
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            
-            return redirect('dashboard');
+        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
+            throw ValidationException::withMessages(['email' => 'Your provided credentials could not be verified.']);
         }
 
-        throw ValidationException::withMessages(['email' => 'Your provided credentials could not be verified.']);
-
-        // return back()->withErrors([
-        //     'email' => 'The provided credentials do not match our records.',
-        // ])->onlyInput('email');
-
-        // return back()
-        //     ->withInput()
-        //     ->withErrors(['email' => 'Your provided credentials could not be verified.']);
+        $request->session()->regenerate();
+            
+        return to_route('dashboard');
     }
 
     public function destroy()
     {
         auth()->logout();
 
-        return redirect('/login')->with('success', 'Goodbye!');
+        return to_route('login')->with('success', 'Goodbye!');
     }
 
 }

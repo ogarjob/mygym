@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +27,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Gate::define('admin', function(User $user) {
+            return Auth::user()->isAdmin();
+        }); 
+        
+        Blade::if('admin', function (User $user = null) {
+            return ($user ?? Auth::user())->isAdmin();
+        });
     }
 }

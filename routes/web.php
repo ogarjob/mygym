@@ -19,18 +19,18 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::view('/dashboard', 'users.dashboard');
+    Route::view('/dashboard',           'users.dashboard')                  ->name('dashboard');
     Route::get('/users/{user}',         [UserController::class, 'show'])    ->name('users.show');
-    Route::post('/users/{user}',        [UserController::class, 'update'])  ->name('users.update');
-    Route::get('/users/delete/{user}',  [UserController::class, 'destroy']) ->name('users.destroy');
-    Route::post('/photo/{user}',        [PhotoController::class, 'update'])  ->name('photo.update');
-    Route::get('/logout', [AuthController::class, 'destroy']);
-
+    Route::put('/users/{user}',        [UserController::class, 'update'])  ->name('users.update');
+    Route::post('/photo/{user}',        [PhotoController::class, 'update']) ->name('photo.update');
+    Route::delete('/users/delete/{user}',  [UserController::class, 'destroy']) ->name('users.destroy');
+    Route::get('/logout', [AuthController::class, 'destroy'])->name('logout');
+    
+    Route::middleware('admin')->group(function () {
+        Route::get('/users', [UserController::class, 'index'])   ->name('users.index');
+    });    
 });
 
-Route::middleware('admin')->group(function () {
-    Route::get('/users',                [UserController::class, 'index'])   ->name('users.index');
-});
 
 
 
