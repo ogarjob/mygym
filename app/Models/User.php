@@ -18,16 +18,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    // protected $fillable = [
-    //     'name',
-    //     'email',
-    //     'username',
-    //     'gender',
-    //     'password',
-    // ];
-
+    
     protected $guarded = [];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -74,4 +66,9 @@ class User extends Authenticatable
 	{
 		return ! $this->isAdmin();
 	}
+
+    public function subscription()
+    {
+        return $this->hasMany(Subscription::class);
+    }
 }
