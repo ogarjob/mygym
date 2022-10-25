@@ -23,7 +23,7 @@
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item {{ request()->is('userss/subscriptions') ? 'active' : '' }}">
         <a class="nav-link" 
-            href="@admin {{ route('subscriptions.index') }} @else {{ route('users.index') }} @endadmin"
+            href="@admin {{ route('subscriptions.index') }} @else {{ route('users-subscriptions.index', auth()->user()) }} @endadmin"
         >
             <i class="fas fa-fw fa-table"></i>
             <span>Subscriptions</span>

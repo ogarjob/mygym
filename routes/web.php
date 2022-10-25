@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\UserSubscriptionController;
 use App\Models\User;
 
 Route::middleware('guest')->group(function () {
@@ -20,6 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/photo/{user}', [PhotoController::class, 'update'])->name('photo.update');
     Route::delete('/users/delete/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     Route::get('/logout', [AuthController::class, 'destroy'])->name('logout');
+
+    Route::get('/users/{user}/subscriptions', [UserSubscriptionController::class, 'index'])->name('users-subscriptions.index');    
 
     Route::middleware('admin')->group(function () {
         Route::get('/users', [UserController::class, 'index'])->name('users.index');

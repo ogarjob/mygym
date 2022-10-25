@@ -11,7 +11,9 @@
 	      		<table class="table table-bordered table-hover rounded" id="dataTable" width="100%" cellspacing="0">
 	                <thead>
 						<tr>
-                            <th>Name</th>
+                            @admin
+                                <th>Name</th>
+                            @endadmin
 							<th>Date</th>
 							<th>Amount Paid</th>
 							<th>Status</th>
@@ -30,16 +32,21 @@
 					    </tr>
 	                </tfoot>
 	                <tbody>
-						@foreach ($subscriptions as $sub)
+						@foreach ($subscriptions as $subscription)
 							<tr>
-								<td>{{ $sub->user->name }}</td>
-								<td>{{ $sub->date }}</td>
-								<td>{{ $sub->amount }}</td>
+                                @admin
+    								<td>
+                                        <a href="{{ route('users-subscriptions.index', $subscription->user) }}">{{ $subscription->user->name }}
+                                        </a>
+                                    </td>
+                                @endadmin
+                                <td>{{ $subscription->date }}</td>
+								<td>{{ $subscription->amount }}</td>
 								<td>
-                                    {{ $sub->paid_at ? 'Paid' : 'Pending' }}
+                                    {{ $subscription->paid_at ? 'Paid'   : 'Pending' }}
                                 </td>						
 								<td>
-                                    @if ($sub->paid_at)
+                                    @if ($subscription->paid_at)
                                         <span class="btn btn-circle btn-success btn-sm"><i class="fas fa-check"></i></span>
                                     @else
                                         <span class=""><i class="fas fa-arrows-rotate"></i></span>

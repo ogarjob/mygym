@@ -67,7 +67,7 @@ class User extends Authenticatable
 		return ! $this->isAdmin();
 	}
 
-    public function subscription()
+    public function subscriptions()
     {
         return $this->hasMany(Subscription::class);
     }
