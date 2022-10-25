@@ -9,7 +9,6 @@ class SubscriptionController extends Controller
 {
     public function index()
     {
-        $subscriptions = Subscription::latest()->get();
-        return view('users.subscriptions.index', compact('subscriptions'));
+        return view('users.subscriptions.index', ['subscriptions' => Subscription::latest()->get()]);
     }
 }

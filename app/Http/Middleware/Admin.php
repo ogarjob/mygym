@@ -17,10 +17,7 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()?->isMember()) {
-            
-            abort(Response::HTTP_FORBIDDEN);
-        }
+        if (auth()->user()?->isMember()) abort(403);
         
         return $next($request);
     }

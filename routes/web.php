@@ -21,11 +21,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/users/delete/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     Route::get('/logout', [AuthController::class, 'destroy'])->name('logout');
 
-    // Route::get('/users/subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions.index');
-    Route::get('/subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions.index');
-    
     Route::middleware('admin')->group(function () {
         Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        // Route::get('/users/subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions.index');
+        Route::get('/userss/subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions.index');    
     });
 });
 

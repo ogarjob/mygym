@@ -11,9 +11,7 @@
 	      		<table class="table table-bordered table-hover rounded" id="dataTable" width="100%" cellspacing="0">
 	                <thead>
 						<tr>
-                            @admin
-                                <th>Name</th>
-                            @endadmin
+                            <th>Name</th>
 							<th>Date</th>
 							<th>Amount Paid</th>
 							<th>Status</th>
@@ -34,10 +32,8 @@
 	                <tbody>
 						@foreach ($subscriptions as $sub)
 							<tr>
-                                @admin
-    								<td>{{ $sub->user->name }}</td>
-                                @endadmin
-                                <td>{{ $sub->date }}</td>
+								<td>{{ $sub->user->name }}</td>
+								<td>{{ $sub->date }}</td>
 								<td>{{ $sub->amount }}</td>
 								<td>
                                     {{ $sub->paid_at ? 'Paid' : 'Pending' }}
