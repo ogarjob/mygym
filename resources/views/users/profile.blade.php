@@ -169,7 +169,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title">Delete Account</h5>
                                         <p>
-                                            Click on the button below to terminate your membership. Your account will no longer exist and you will permanently lose your privilages as a user. 
+                                            Click on the button below to terminate account. This account will no longer exist and will permanently lose privilages as a user.
                                         </p>
                                         <form action="{{ route('users.destroy', $user) }}" method="POST">
                                             @csrf
@@ -185,5 +185,20 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            function showPasswordTab() {
+                $("#update-tab-pane").removeClass("show");
+                $("#update-tab-pane").removeClass("active");
+                $("#update-tab").removeClass("active");
+                $("#password-tab-pane").addClass("show");
+                $("#password-tab-pane").addClass("active");
+                $("#password-tab").addClass("active");
+            }
+            @error('password')
+                showPasswordTab();
+            @enderror
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </x-layout>

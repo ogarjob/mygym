@@ -16,6 +16,7 @@ class UserController extends Controller
 
     public function index()
     {
+        $this->authorize('viewAny');
         $users = User::all();
 
         return view('users.index', compact('users'));
@@ -31,7 +32,7 @@ class UserController extends Controller
             'password' => 'required|confirmed|max:255|min:3',
         ]);
 
-        $user = User::create($attributes);
+        User::create($attributes);
 
         return redirect('login')->with('message', 'Your account has been Registered. Use your details to login');
     }
@@ -44,7 +45,8 @@ class UserController extends Controller
     }
     
     public function update(User $user)
-    {        
+    {
+        $this->authorize('update', $user);
         request()->validate([
             'email'     => ['email', $unique = Rule::unique('users')->ignore($user)],
             'username'  => ['alpha_num', $unique],
@@ -58,6 +60,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        $this->authorize('delete', $user);
         $user->delete();
 
         return to_route('users.index')->with('message', 'User has been deleted');

@@ -36,23 +36,19 @@
 							<tr>
                                 @admin
     								<td>
-                                        <a href="{{ route('users-subscriptions.index', $subscription->user) }}">{{ $subscription->user->name }}
+                                        <a href="{{ route('users.subscriptions.index', $subscription->user) }}">{{ $subscription->user->name }}
                                         </a>
                                     </td>
                                 @endadmin
                                 <td>{{ $subscription->date }}</td>
 								<td>{{ $subscription->amount }}</td>
-								<td>
-                                    {{ $subscription->paid_at ? 'Paid'   : 'Pending' }}
-                                </td>						
-								<td>
-                                    @if ($subscription->paid_at)
-                                        <span class="btn btn-circle btn-success btn-sm"><i class="fas fa-check"></i></span>
-                                    @else
-                                        <span class=""><i class="fas fa-arrows-rotate"></i></span>
-                                        <i class="fa-regular fa-arrows-rotate"></i>
-                                    @endif
-                                </td>						
+                                @if ($subscription->paid_at)
+                                    <td><span class="badge badge-success">Paid</span></td>
+                                    <td></td>
+                                @else
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                    <td><span class="btn btn-circle btn-warning btn-sm"><i class="fas fa-exclamation-triangle"></i></span></td>
+                                @endif
 							</tr>						
 						@endforeach
 					</tbody>
@@ -60,4 +56,24 @@
 	        </div>
 	    </div>
 	</div>
+    @unlessadmin
+        <div class="col-md-4 card shadow mb-4 px-0">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Renew Subscription</h6>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('subscriptions.store', $subscription->user) }}" method="POST">
+                    @csrf
+                        <x-form.input name='date' type="date"/>
+                        <x-form.field>
+                            <x-form.label name="amount"/>
+                            <select name="amount" id="amount" class="form-control">
+                                <option value="1000">1000</option>
+                            </select>
+                        </x-form.field>
+                        <x-form.button>Subscribe</x-form.button>
+                </form>
+            </div>
+        </div>
+    @endunless
 </x-layout>

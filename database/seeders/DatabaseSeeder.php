@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // User::factory(15)->create();
-        Subscription::factory(10)->create();
+        // Subscription::factory(10)->create();
+        foreach (User::all() as $user)
+        {
+            Subscription::factory()->create(['user_id' => $user->id]);
+        }
     }
 }
