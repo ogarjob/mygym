@@ -44,10 +44,10 @@
 								<td>{{ $subscription->amount }}</td>
                                 @if ($subscription->paid_at)
                                     <td><span class="badge badge-success">Paid</span></td>
-                                    <td></td>
+                                    <td><a href="{{ route('users.subscriptions.show', [$subscription->user, $subscription]) }}" class="btn btn-circle btn-info btn-sm"><i class="fas fa-info-circle"></i></a></td>
                                 @else
                                     <td><span class="badge badge-warning">Pending</span></td>
-                                    <td><span class="btn btn-circle btn-warning btn-sm"><i class="fas fa-exclamation-triangle"></i></span></td>
+                                    <td><a href="#" class="text-warning h4">↻</a></td>
                                 @endif
 							</tr>						
 						@endforeach

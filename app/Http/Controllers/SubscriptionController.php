@@ -11,12 +11,12 @@ class SubscriptionController extends Controller
 {
     public function index()
     {
-        // $this->authorize('viewAny');
+        $this->authorize('view-any', User::class);
 
         return view('users.subscriptions.index', ['subscriptions' => Subscription::latest()->get()]);
     }
 
-    public function store(User $user)
+    public function store()
     {
         $attributes = request()->validate([
             'date' => 'required|date',

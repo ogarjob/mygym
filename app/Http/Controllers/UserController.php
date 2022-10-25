@@ -14,13 +14,15 @@ class UserController extends Controller
         return view('auth.register');
     }
 
+
     public function index()
     {
-        $this->authorize('viewAny');
+        $this->authorize('view-any', User::class);
         $users = User::all();
 
         return view('users.index', compact('users'));
     }
+
 
     public function store()
     {
@@ -31,12 +33,12 @@ class UserController extends Controller
             'gender' => 'required',
             'password' => 'required|confirmed|max:255|min:3',
         ]);
-
         User::create($attributes);
 
         return redirect('login')->with('message', 'Your account has been Registered. Use your details to login');
     }
     
+
     public function show(User $user)
     {
         $this->authorize('view', $user);
@@ -44,6 +46,7 @@ class UserController extends Controller
         return view('users.profile', ['user' => $user]);
     }
     
+
     public function update(User $user)
     {
         $this->authorize('update', $user);
@@ -52,11 +55,11 @@ class UserController extends Controller
             'username'  => ['alpha_num', $unique],
             'password'  => ['confirmed']
         ]);
-
         $user->update(request()->except('password_confirmation'));
         
         return back()->with('message', 'Update was successful');
     }
+
 
     public function destroy(User $user)
     {
