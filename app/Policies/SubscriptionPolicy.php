@@ -2,10 +2,11 @@
 
 namespace App\Policies;
 
+use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UserPolicy
+class SubscriptionPolicy
 {
     use HandlesAuthorization;
 
@@ -17,19 +18,19 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAdmin();
+        //
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Subscription  $subscription
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, User $model)
+    public function view(User $user, Subscription $subscription)
     {
-        return $user->is($model) || $user->isAdmin();
+        return $user->is($subscription->user) || $user->isAdmin();
     }
 
     /**
@@ -47,34 +48,34 @@ class UserPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Subscription  $subscription
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, User $model)
+    public function update(User $user, Subscription $subscription)
     {
-        return $user->is($model) || $user->isAdmin();
+        return $user->is($subscription->user) || $user->isAdmin();
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Subscription  $subscription
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, User $model)
+    public function delete(User $user, Subscription $subscription)
     {
-        return $user->is($model) || $user->isAdmin();
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Subscription  $subscription
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, User $model)
+    public function restore(User $user, Subscription $subscription)
     {
         //
     }
@@ -83,22 +84,11 @@ class UserPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Subscription  $subscription
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, User $model)
+    public function forceDelete(User $user, Subscription $subscription)
     {
         //
     }
-
-    public function changeType(User $user) 
-    {
-        return $user->isAdmin();
-    }
-
-    public function subscribe(User $user, User $model) 
-    {
-        return $user->is($model);
-    }
-
 }

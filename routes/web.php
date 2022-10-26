@@ -27,14 +27,15 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::controller(UserSubscriptionController::class)->group(function () {
-        Route::get('/users/{user}/subscriptions',               'index')->name('users.subscriptions.index');
-        Route::get('/users/{user}/subscriptions/{subscription}', 'show')->name('users.subscriptions.show');
+        Route::get('/users/{user}/subscriptions',         'index')->name('users.subscriptions.index');
+        Route::post('/users/{user}/subscriptions',        'store')->name('users.subscriptions.store');
     });
-
+    
     Route::controller(SubscriptionController::class)->group(function () {
         // Route::get('/users/subscriptions', 'index'])->name('subscriptions.index');
-        Route::get('/subscriptions',        'index')->name('subscriptions.index');
-        Route::post('/users/subscriptions', 'store')->name('subscriptions.store');
+        Route::get('/subscriptions', 'index')->name('subscriptions.index');
+        Route::get('/users/subscriptions/{subscription}', 'show')->name('subscriptions.show');
+        Route::put('/users/subscriptions/{subscription}', 'update')->name('subscriptions.update');
     });
 });
 

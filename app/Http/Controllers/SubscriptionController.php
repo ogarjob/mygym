@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Subscription;
-use Illuminate\Support\Str;
 use App\Models\User;
 
 class SubscriptionController extends Controller
@@ -16,16 +15,19 @@ class SubscriptionController extends Controller
         return view('users.subscriptions.index', ['subscriptions' => Subscription::latest()->get()]);
     }
 
-    public function store()
+    public function show(Subscription $subscription)
     {
-        $attributes = request()->validate([
-            'date' => 'required|date',
-            'amount' => 'required',
-        ]);
-        $attributes['user_id'] = auth()->id();
-        $attributes['reference'] = strToUpper(Str::random(15));
-        Subscription::create($attributes);
+        $this->authorize('view', $subscription);
+       
+        return view('users.subscriptions.show', compact('subscription'));
+    }
 
-        return back()->with(['message' => 'Subscription was successful']);
+    public function update(User $user, Subscription $subscription)
+    {
+        $this->authorize('update', $subscription);
+
+        $subscription->update(['paid_at' => now(1)]);
+        
+        return back()->with(['message' =>'Payment was successful!']);
     }
 }

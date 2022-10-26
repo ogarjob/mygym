@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <th>Paid at</th>
-                <td>{{ $subscription->paid_at }}</td>
+                <td>{{ $subscription->paid_at ?? '--------' }}</td>
             </tr>
         </table>
     </x-card>

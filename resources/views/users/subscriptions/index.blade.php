@@ -44,10 +44,16 @@
 								<td>{{ $subscription->amount }}</td>
                                 @if ($subscription->paid_at)
                                     <td><span class="badge badge-success">Paid</span></td>
-                                    <td><a href="{{ route('users.subscriptions.show', [$subscription->user, $subscription]) }}" class="btn btn-circle btn-info btn-sm"><i class="fas fa-info-circle"></i></a></td>
+                                    <td><a href="{{ route('subscriptions.show', $subscription) }}" class="btn btn-circle btn-info btn-sm m-2"><i class="fas fa-info-circle"></i></a></td>
                                 @else
                                     <td><span class="badge badge-warning">Pending</span></td>
-                                    <td><a href="#" class="text-warning h4">↻</a></td>
+                                    <td>
+                                        <form action="{{ route('subscriptions.update', $subscription) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <button href="#" class="text-warning btn btn-lg">↻</button>
+                                        </form>	
+                                    </td>
                                 @endif
 							</tr>						
 						@endforeach
@@ -62,13 +68,21 @@
                 <h6 class="m-0 font-weight-bold text-primary">Renew Subscription</h6>
             </div>
             <div class="card-body">
-                <form action="{{ route('subscriptions.store', $subscription->user) }}" method="POST">
+                <form action="{{ route('users.subscriptions.store', $subscription->user) }}" method="POST">
                     @csrf
                         <x-form.input name='date' type="date"/>
                         <x-form.field>
                             <x-form.label name="amount"/>
                             <select name="amount" id="amount" class="form-control">
                                 <option value="1000">1000</option>
+                            </select>
+                        </x-form.field>
+                        <x-form.field>
+                            <x-form.label name="card"/>
+                            <select name="card" id="card" class="form-control">
+                                <option value="1000">***********8495</option>
+                                <option value="1000">***********3645</option>
+                                <option value="1000">***********1589</option>
                             </select>
                         </x-form.field>
                         <x-form.button>Subscribe</x-form.button>
