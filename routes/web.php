@@ -17,25 +17,32 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::view('/dashboard', 'users.dashboard') ->name('dashboard');
     Route::get('/logout', [AuthController::class, 'destroy'])->name('logout');
-    Route::post('/photo/{user}', [PhotoController::class, 'update'])->name('photo.update');
+    Route::put('users/photo/{user}', [PhotoController::class, 'update'])->name('users.photo.update');
+    Route::delete('users/photo/{user}', [PhotoController::class, 'destroy'])->name('users.photo.destroy');
     
     Route::controller(UserController::class)->group(function () {
-        Route::get('/users',            'index')    ->name('users.index');
-        Route::get('/users/{user}',     'show')     ->name('users.show');
-        Route::put('/users/{user}',     'update')   ->name('users.update');
-        Route::delete('/users/{user}',  'destroy')  ->name('users.destroy');
+        Route::name('users.')->group(function () {
+            Route::get('/users',            'index')    ->name('index');
+            Route::get('/users/{user}',     'show')     ->name('show');
+            Route::put('/users/{user}',     'update')   ->name('update');
+            Route::delete('/users/{user}',  'destroy')  ->name('destroy');
+        });
     });
 
     Route::controller(UserSubscriptionController::class)->group(function () {
-        Route::get('/users/{user}/subscriptions',         'index')->name('users.subscriptions.index');
-        Route::post('/users/{user}/subscriptions',        'store')->name('users.subscriptions.store');
+        Route::name('users.subscriptions.')->group(function () {
+            Route::get('/users/{user}/subscriptions',  'index')->name('index');
+            Route::post('/users/{user}/subscriptions', 'store')->name('store');
+        });
     });
     
     Route::controller(SubscriptionController::class)->group(function () {
-        // Route::get('/users/subscriptions', 'index'])->name('subscriptions.index');
-        Route::get('/subscriptions', 'index')->name('subscriptions.index');
-        Route::get('/users/subscriptions/{subscription}', 'show')->name('subscriptions.show');
-        Route::put('/users/subscriptions/{subscription}', 'update')->name('subscriptions.update');
+        Route::name('subscriptions.')->group(function () {
+            // Route::get('/users/subscriptions', 'index'])->name('subscriptions.index');
+            Route::get('/subscriptions',                        'index')->name('index');
+            Route::get('/users/subscriptions/{subscription}',   'show') ->name('show');
+            Route::put('/users/subscriptions/{subscription}',   'update')->name('update');
+        });
     });
 });
 

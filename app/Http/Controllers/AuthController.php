@@ -20,11 +20,9 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        
         if (! Auth::attempt($credentials, $request->boolean('remember'))) {
             throw ValidationException::withMessages(['email' => 'Your provided credentials could not be verified.']);
         }
-
         $request->session()->regenerate();
             
         return to_route('dashboard');
@@ -34,7 +32,6 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        return to_route('login')->with('success', 'Goodbye!');
+        return to_route('login')->with('message', 'Goodbye!');
     }
-
 }

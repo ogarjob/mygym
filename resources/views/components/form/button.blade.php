@@ -1,6 +1,6 @@
 <x-form.field>
     <button type="submit" 
-        class="btn btn-primary"
+        {{ $attributes(['class' => "btn btn-primary mt-2"]) }}
     >
         {{ $slot }}
     </button>

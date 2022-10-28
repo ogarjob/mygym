@@ -10,16 +10,23 @@ class PhotoController extends Controller
 {
     public function update(User $user)
     {
-        // dd(Storage::file($user->photo));
+        $this->authorize('update', $user);
         if ($user->photo) {
             Storage::delete($user->photo);
         }
         $path = Storage::putFile('uploads', request()->file('photo'));
 
         $user->update(['photo' => $path]);
-        // $affected = \DB::table('users')->where('id', $user->id)->update(['photo' => $path]);
         
         return back()->with('message', 'Update was successful');
     }
 
+    
+    public function destroy(User $user)
+    {
+        $this->authorize('delete', $user);
+        $user->update(['photo' => NULL]);
+
+        return back()->with('message', 'Photo has been removed');
+    }
 }

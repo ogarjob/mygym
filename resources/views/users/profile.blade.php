@@ -40,7 +40,7 @@
                             </div> <!-- end col-->
                             <div class="col-sm-4">
                                 <div class="text-center mt-sm-0 mt-3 text-sm-end">
-                                    <form action="{{ route('photo.update', $user->id) }}" id="form-photo" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('users.photo.update', $user->id) }}" id="form-photo" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <label for="photo" class="btn btn-light"> Change Photo </label>
@@ -82,43 +82,28 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="row">
-                                        <div class="mb-3 col-md-6">
-                                            <label for="name" class="form-label">Name</label>
-                                            <input type="text" class="form-control" name="name" value="<?= $user->name ?>" id="name">
-                                            @error('name')
-                                                <p class="text-danger text-xs mt-1">{{ $message }}</p>
-                                            @enderror
+                                        <div class="col-md-6">
+                                            <x-form.input name="name" label="Name" value="{{ old('name') ?? $user->name }}"/>
                                         </div>
-                                        <div class="mb-3 col-md-6">
-                                            <label for="email" class="form-label">Email address</label>
-                                            <input type="email" class="form-control" name="email" value="<?= $user->email ?>" id="email" aria-describedby="emailHelp">
-                                            @error('email')
-                                                <p class="text-danger text-xs mt-1">{{ $message }}</p>
-                                            @enderror
+                                        <div class="col-md-6">
+                                            <x-form.input name="email" type="email" label="Email Address" value="{{ old('email') ?? $user->email }}"/>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="mb-3 col-md-6">
-                                            <label for="username" class="form-label">Username</label>
-                                            <input type="text" class="form-control"  name="username" value="<?= $user->username ?>" id="username">
-                                            @error('username')
-                                                <p class="text-danger text-xs mt-1">{{ $message }}</p>
-                                            @enderror
+                                        <div class="col-md-6">
+                                            <x-form.input name="username" label="Username" value="{{ old('username') ?? $user->username }}"/>
                                         </div>
-                                        <div class="mb-3 col-md-6">
-                                            <label for="gender" class="form-label">Gender</label>
-                                            <select class="form-control" name="gender" id="gender">
+                                        <div class="col-md-6">
+                                            <x-form.select name="gender" label="Gender">
                                                 <option value="M">Male</option>
                                                 <option value="F">Female</option>
-                                            </select>
+                                            </x-form.select>
                                             <script>
-                                                document.querySelector('#gender').value = "<?= old('gender', $user->gender)?>"
+                                                document.querySelector('#gender').value = "{{ old('gender', $user->gender) }}"
                                             </script>
                                         </div>
                                     </div>
-                                    <div class="mt-2">
-                                        <button type="submit" class="btn btn-primary">Update Profile</button>
-                                    </div>
+                                    <x-form.button>Update Profile</x-form.button>
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="password-tab-pane" role="tabpanel" aria-labelledby="password-tab" tabindex="0">
@@ -126,21 +111,14 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="row">
-                                        <div class="mb-3 col-md-6">
-                                            <label for="new-password" class="form-label">New Password</label>
-                                            <input type="password" class="form-control" name="password" placeholder="Create a new password" id="new-password" required>
-                                            @error('password')
-                                                <p class="text-danger text-xs mt-1">{{ $message }}</p>
-                                            @enderror
+                                        <div class="col-md-6">
+                                            <x-form.input name="password" type="password" label="New Password" placeholder="Create a new Password"/>
                                         </div>
-                                        <div class="mb-3 col-md-6">
-                                            <label for="repeat-password" class="form-label">Repeat Password</label>
-                                            <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm your new password" id="repeat-password" required>
+                                        <div class="col-md-6">
+                                            <x-form.input name="password_confirmation" type="password" label="Repeat Password" placeholder="Confirm your new password"/>
                                         </div>
                                     </div>
-                                    <div class="mt-2">
-                                        <input type="submit" name="" class="btn btn-primary" value="Change Password">
-                                    </div>
+                                    <x-form.button>Change Password</x-form.button>
                                 </form>
                             </div>
                             <div class="tab-pane fade container" id="advanced-tab-pane" role="tabpanel" aria-labelledby="advanced-tab" tabindex="0">
@@ -156,15 +134,28 @@
                                                 @method('PUT')
                                                 @admin($user)
                                                     <input type="hidden" name="type" value="1">
-                                                    <button class="btn btn-warning btn-sm">Dismiss As Admin</button>
+                                                    <x-form.button class="btn-warning btn-sm">Dismiss As Admin</x-form.button>
                                                 @else
                                                     <input type="hidden" name="type" value="2">
-                                                    <button class="btn btn-primary btn-sm">Make Admin</button>
+                                                    <x-form.button class="btn-sm">Make Admin</x-form.button>
                                                 @endadmin
                                             </form>
                                         </div>
                                     </div>
                                 @endcan
+                                <div class="card mb-5">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Remove Profile Photo</h5>
+                                        <p>
+                                            Click on the button below to posibly remove your profile photo.
+                                        </p>
+                                        <form action="{{ route('users.photo.destroy', $user) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <x-form.button class="btn-danger btn-sm"  onclick="return confirm('Are you sure you want to remove your profile photo?')">Remove Photo</x-form.button>
+                                        </form>
+                                    </div>
+                                </div>
                                 <div class="card mb-5">
                                     <div class="card-body">
                                         <h5 class="card-title">Delete Account</h5>
@@ -174,7 +165,7 @@
                                         <form action="{{ route('users.destroy', $user) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-danger btn-sm"  onclick=" return confirm('Are you sure you want to delete this account?')">Delete Account</button>
+                                            <x-form.button class="btn-danger btn-sm"  onclick=" return confirm('Are you sure you want to delete this account?')">Delete Account</x-form.button>
                                         </form>
                                     </div>
                                 </div>

@@ -25,6 +25,8 @@ class SubscriptionController extends Controller
     public function update(User $user, Subscription $subscription)
     {
         $this->authorize('update', $subscription);
+        
+        // Validate Payment first
 
         $subscription->update(['paid_at' => now(1)]);
         

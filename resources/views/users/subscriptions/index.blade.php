@@ -66,7 +66,7 @@
         <div class="col-md-4 card shadow mb-4 px-0">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Renew Subscription</h6>
-            </div>
+            </div> 
             <div class="card-body">
                 <form action="{{ route('users.subscriptions.store', $subscription->user) }}" method="POST">
                     @csrf

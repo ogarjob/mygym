@@ -1,13 +1,13 @@
-@props(['name', 'type'=> 'text'])
-
+@props(['name', 'type'=> 'text', 'placeholder' => '', 'label' => '' ])
 <x-form.field>
-	<x-form.label name="{{ $name }}" />
-	<input class="form-control form-control-user" 
+	<x-form.label name="{{ $name }}" label="{{ $label }}"/>
+	<input  
 		type="{{ $type }}" 
-		id="{{ $name }}" 
+		id="{{ $name }}"
+		placeholder="{{ $placeholder }}" 
 		name="{{ $name }}" 
-		value="{{ old($name) }}" 
 		required
+		{{ $attributes(['value' => old($name), "class" => "form-control form-control-user" ]) }}  
 	>
 	<x-form.error name="{{ $name }}" />
 </x-form.field>
