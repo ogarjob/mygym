@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Subscription;
+use App\Http\Requests\StoreSubscriptionRequest;
 
 class UserSubscriptionController extends Controller
 {
@@ -16,18 +16,9 @@ class UserSubscriptionController extends Controller
         return view('users.subscriptions.index', ['subscriptions' => $user->subscriptions]);
     }
 
-
-    public function store(User $user)
+    public function store(StoreSubscriptionRequest $request, User $user)
     {
-        $this->authorize('subscribe', $user);
-
-        $attributes = request()->validate([
-            'date' => 'required|date',
-            'amount' => 'required',
-        ]);
-        $attributes['user_id'] = $user->id;
-        $attributes['reference'] = strToUpper(Str::random(15));
-        Subscription::create($attributes);
+        $user->subscriptions()->create($request->validated());
 
         return back()->with(['message' => 'Subscription was successful']);
     }

@@ -39,12 +39,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static function booted()
+    {
+        static::creating(function ($user) {
+            $user->password ??= '1122';
+        });
+    }
 
     public function password(): Attribute
     {
         return Attribute::set(fn ($value) => bcrypt($value));
     }
-
 
     public function photo()
     {
@@ -55,12 +60,10 @@ class User extends Authenticatable
         return asset($this->photo);
     }
  
-
     public function isAdmin()
 	{
 		return $this->type == 2;
 	}
-
 
 	public function isMember()
 	{

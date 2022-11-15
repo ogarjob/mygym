@@ -40,7 +40,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -98,7 +98,6 @@ class UserPolicy
 
     public function subscribe(User $user, User $model) 
     {
-        return $user->is($model);
+        return $user->is($model) || $user->isAdmin();
     }
-
 }

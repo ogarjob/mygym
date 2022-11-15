@@ -1,11 +1,8 @@
 <x-layout>
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800">Tables</h1>
+	<h1 class="h3 mb-2 text-gray-800">Subscriptions</h1>
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
-	    <div class="card-header py-3">
-	        <h6 class="m-0 font-weight-bold text-primary">Subscriptions</h6>
-	    </div>
 	    <div class="card-body">
 	        <div class="table-responsive">	      		
 	      		<table class="table table-bordered table-hover rounded" id="dataTable" width="100%" cellspacing="0">
@@ -62,10 +59,10 @@
 	        </div>
 	    </div>
 	</div>
-    @unlessadmin
+    @if (request()->route()->named('users.subscriptions.index'))
         <div class="col-md-4 card shadow mb-4 px-0">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Renew Subscription</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Make New Subscription</h6>
             </div> 
             <div class="card-body">
                 <form action="{{ route('users.subscriptions.store', $subscription->user) }}" method="POST">
@@ -89,5 +86,5 @@
                 </form>
             </div>
         </div>
-    @endunless
+    @endif
 </x-layout>
