@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title></title>
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{{--    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>--}}
 </head>
 <body class="bg-gradient-primary">
     <x-flash />
@@ -30,10 +32,10 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form action="{{ url('login') }}" method="POST" class="user">
+                                    <form action="{{ route('api.login') }}" method="POST" class="user x-submit" data-then="reload">
                                         @csrf
-                                        <x-form.input name="email" placeholder="Enter Email Address..." />                    
-                                        <x-form.input name="password" type="password" placeholder="Password" />                    
+                                        <x-form.input name="email" placeholder="Enter Email Address..." />
+                                        <x-form.input name="password" type="password" placeholder="Password" />
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck" name="remember">
@@ -72,5 +74,9 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <script src="{{ asset("js/bootstrap-notify.js") }}"></script>
+    <script src="{{ asset("js/sweetalert.min.js") }}"></script>
+    <script src="{{ asset("js/request.js") }}"></script>
 </body>
 </html>
