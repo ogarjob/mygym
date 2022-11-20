@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PhotoController;
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserSubscriptionController;
