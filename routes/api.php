@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\RegisterController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserSubscriptionController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\UserSubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 

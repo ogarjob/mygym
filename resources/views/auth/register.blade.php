@@ -2,7 +2,7 @@
     <div class="text-center">
         <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
     </div>
-    <form action="{{ route('api.register.store') }}" method="POST" class="user x-submit" data-then="alert">
+    <form action="{{ route('api.register.store') }}" method="POST" class="user x-submit" data-then="reload">
         {{ csrf_field() }}
         <x-form.input name="name" placeholder="Full Name" />
         <x-form.input name="email" placeholder="Email Address" />

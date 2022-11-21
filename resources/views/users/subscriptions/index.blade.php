@@ -4,7 +4,7 @@
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 	    <div class="card-body">
-	        <div class="table-responsive">	      		
+	        <div class="table-responsive">
 	      		<table class="table table-bordered table-hover rounded" id="dataTable" width="100%" cellspacing="0">
 	                <thead>
 						<tr>
@@ -49,10 +49,10 @@
                                             @csrf
                                             @method('PUT')
                                             <button href="#" class="text-warning btn btn-lg">↻</button>
-                                        </form>	
+                                        </form>
                                     </td>
                                 @endif
-							</tr>						
+							</tr>
 						@endforeach
 					</tbody>
 	            </table>
@@ -63,9 +63,9 @@
         <div class="col-md-4 card shadow mb-4 px-0">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Make New Subscription</h6>
-            </div> 
+            </div>
             <div class="card-body">
-                <form action="{{ route('users.subscriptions.store', $subscription->user) }}" method="POST">
+                <form action="{{ route('api.users.subscriptions.store', $user) }}" method="POST" class="x-submit" data-then="reload">
                     @csrf
                         <x-form.input name='date' type="date"/>
                         <x-form.field>

@@ -11,7 +11,7 @@
 	    </div>
 		<x-modal/>
 	    <div class="card-body">
-	        <div class="table-responsive">	      		
+	        <div class="table-responsive">
 	      		<table class="table table-bordered table-hover rounded" id="dataTable" width="100%" cellspacing="0">
 	                <thead>
 						<tr>
@@ -34,20 +34,20 @@
 	                <tbody>
 						@foreach ($users as $user)
 							<tr>
-								<td> 
-									<a href="{{ route('users.show', $user) }}">{{ $user->name }}</a> 
+								<td>
+									<a href="{{ route('users.show', $user) }}">{{ $user->name }}</a>
 								</td>
 								<td> {{ $user->email }} </td>
-								<td> {{ $user->username }} </td>						
+								<td> {{ $user->username }} </td>
 								<td><a class="btn btn-primary" href="{{ route('users.subscriptions.index', $user) }}">View</a> </td>
 								<td>
-									<form action="{{ route('users.destroy', $user) }}" method="POST">
+									<form action="{{ route('api.users.destroy', $user) }}" method="POST" class="x-submit" data-then="reload">
 										@csrf
 										@method('DELETE')
-										<button class="btn btn-danger"  onclick=" return confirm('Are you sure you want to delete this account')">Delete</button>
-									</form>								 
-								</td>								
-							</tr>						
+										<button type="submit" class="btn btn-danger"  >Delete</button>
+									</form>
+								</td>
+							</tr>
 						@endforeach
 					</tbody>
 	            </table>

@@ -44,9 +44,9 @@
                                         @csrf
                                         @method('PUT')
                                         <label for="photo" class="btn btn-light"> Change Photo </label>
-                                        <input class="form-control" type="file" 
+                                        <input class="form-control" type="file"
                                             accept="image/jpg, image/jpeg, image/png"
-                                            name="photo" id="photo"    
+                                            name="photo" id="photo"
                                             style="display: none;"
                                             onchange="document.querySelector('#form-photo').submit()"
                                         >
@@ -78,36 +78,33 @@
                     <div class="w-7 py-3">
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="update-tab-pane" role="tabpanel" aria-labelledby="update-tab" tabindex="0">
-                                <form class="container" method="POST" action="{{ route('users.update', $user->id) }}">
+                                <form class="container x-submit" action="{{ route("api.users.update", $user) }}" method="POST" id="update-form" data-then="reload">
                                     @csrf
                                     @method('PUT')
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <x-form.input name="name" label="Name" value="{{ old('name') ?? $user->name }}"/>
+                                            <x-form.input name="name" label="Name" value="{{ $user->name }}"/>
                                         </div>
                                         <div class="col-md-6">
-                                            <x-form.input name="email" type="email" label="Email Address" value="{{ old('email') ?? $user->email }}"/>
+                                            <x-form.input name="email" type="email" label="Email Address" value="{{ $user->email }}"/>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <x-form.input name="username" label="Username" value="{{ old('username') ?? $user->username }}"/>
+                                            <x-form.input name="username" label="Username" value="{{ $user->username }}"/>
                                         </div>
                                         <div class="col-md-6">
                                             <x-form.select name="gender" label="Gender">
                                                 <option value="M">Male</option>
                                                 <option value="F">Female</option>
                                             </x-form.select>
-                                            <script>
-                                                document.querySelector('#gender').value = "{{ old('gender', $user->gender) }}"
-                                            </script>
                                         </div>
                                     </div>
                                     <x-form.button>Update Profile</x-form.button>
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="password-tab-pane" role="tabpanel" aria-labelledby="password-tab" tabindex="0">
-                                <form class="container"  method="POST" action="{{ route('users.update', $user->id) }}" >
+                                <form class="container x-submit" action="{{ route("api.users.update", $user) }}" method="POST" data-then="reload">
                                     @csrf
                                     @method('PUT')
                                     <div class="row">
@@ -129,7 +126,7 @@
                                             <p>
                                                 Click on the button below to change the User type
                                             </p>
-                                            <form action="{{ route('users.update', $user->id) }}" method="POST" >                                                
+                                            <form action="{{ route("api.users.update" , $user) }}" method="POST"  class="x-submit" data-then="reload">
                                                 @csrf
                                                 @method('PUT')
                                                 @admin($user)
@@ -149,7 +146,7 @@
                                         <p>
                                             Click on the button below to posibly remove your profile photo.
                                         </p>
-                                        <form action="{{ route('users.photo.destroy', $user) }}" method="POST">
+                                        <form action="{{ route("api.users.destroy" , $user) }}" method="POST" class="x-submit" data-then="reload">
                                             @csrf
                                             @method('DELETE')
                                             <x-form.button class="btn-danger btn-sm"  onclick="return confirm('Are you sure you want to remove your profile photo?')">Remove Photo</x-form.button>
@@ -162,7 +159,7 @@
                                         <p>
                                             Click on the button below to terminate account. This account will no longer exist and will permanently lose privilages as a user.
                                         </p>
-                                        <form action="{{ route('users.destroy', $user) }}" method="POST">
+                                        <form action="{{ route('api.users.destroy', $user) }}" method="POST" class="x-submit" data-then="reload">
                                             @csrf
                                             @method('DELETE')
                                             <x-form.button class="btn-danger btn-sm"  onclick=" return confirm('Are you sure you want to delete this account?')">Delete Account</x-form.button>

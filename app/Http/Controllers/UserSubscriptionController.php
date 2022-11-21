@@ -13,13 +13,6 @@ class UserSubscriptionController extends Controller
     {
         $this->authorize('view', $user);
 
-        return view('users.subscriptions.index', ['subscriptions' => $user->subscriptions]);
-    }
-
-    public function store(StoreSubscriptionRequest $request, User $user)
-    {
-        $user->subscriptions()->create($request->validated());
-
-        return back()->with(['message' => 'Subscription was successful']);
+        return view('users.subscriptions.index', ['subscriptions' => $user->subscriptions, 'user' => $user]);
     }
 }

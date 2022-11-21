@@ -60,5 +60,5 @@
     </div>
 </ul>
 <script>
-    $('.nav-link[href="{{ url()->current() }}"]').parent().addClass('active');
+    $('a[href="{{ url()->current() }}"]').parent().addClass('active');
 </script>
