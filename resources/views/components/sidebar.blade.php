@@ -32,7 +32,7 @@
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item {{ request()->routeIs('subscriptions.*') || request()->routeIs('users.subscriptions.*') ? 'active' : '' }}">
         <a class="nav-link"
-            href="@admin {{ route('subscriptions.index') }} @else {{ route('users.subscriptions.index', auth()->user()) }} @endadmin"
+            href="@admin {{ route('subscriptions.index') }} @else {{ route('users.subscriptions.index', user()) }} @endadmin"
         >
             <i class="fas fa-fw fa-folder"></i>
             <span>Subscriptions</span>
