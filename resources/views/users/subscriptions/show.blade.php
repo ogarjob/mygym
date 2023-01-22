@@ -1,6 +1,6 @@
 <x-layout>
     <x-card class="col-md-6 offset-md-3">
-        <x-slot name="heading">Subscription Details</x-slot>        
+        <x-slot name="heading">Subscription Details</x-slot>
         <table class="table table-bordered table-hover rounded" id="dataTable" width="100%" cellspacing="0">
             <tr>
                 <th>Member</th>

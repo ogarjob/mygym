@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\PaystackWebhookController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
@@ -11,8 +12,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
     Route::view('/login', 'auth.login')->name('login');
-    Route::post('/login',       [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login']);
     Route::get('/register', [RegisterController::class, 'create'])->name('register.create');
+    Route::post('paystack/hook', PaystackWebhookController::class);
+
 });
 
 Route::middleware('auth')->group(function () {
@@ -35,7 +38,7 @@ Route::middleware('auth')->group(function () {
 //        });
 //    });
 
-    Route::resource('users',                UserController::class)->except('create');
+    Route::resource('users',                UserController::class)->only('index', 'show');
     Route::resource('subscriptions',        SubscriptionController::class)->only(['index', 'show']);
     Route::resource('users.subscriptions',  UserSubscriptionController::class)->only('index');
 

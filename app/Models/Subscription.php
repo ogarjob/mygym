@@ -18,7 +18,18 @@ class Subscription extends Model
     {
         static::creating(function ($subscription) {
             $subscription->reference ??= Str::random(15);
+            $subscription->amount    ??= 1000;
         });
+    }
+
+    /**
+    * Mark the subscriptions as paid.
+    */
+    public function markAsPaid(): static
+    {
+        $this->update(['paid_at' => now()]);
+
+        return $this;
     }
 
     public function user()

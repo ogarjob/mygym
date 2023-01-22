@@ -14,23 +14,23 @@ class SubscriptionController extends Controller
 
         return view('users.subscriptions.index', ['subscriptions' => Subscription::latest()->get()]);
     }
-    
+
     public function show(User $user, Subscription $subscription)
     {
         // $this->authorize('view', $subscription);
         $this->authorize('view', $user);
-       
+
         return view('users.subscriptions.show', compact('subscription'));
     }
 
     public function update(User $user, Subscription $subscription)
     {
         $this->authorize('update', $subscription);
-        
+
         // Validate Payment first
 
         $subscription->update(['paid_at' => now(1)]);
-        
+
         return back()->with(['message' =>'Payment was successful!']);
     }
 }

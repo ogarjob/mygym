@@ -45,10 +45,9 @@
                                 @else
                                     <td><span class="badge badge-warning">Pending</span></td>
                                     <td>
-                                        <form action="{{ route('subscriptions.update', $subscription) }}" method="POST">
+                                        <form action="{{ route('api.subscriptions.show', $subscription) }}" method="POST" class="x-submit" data-then="payWithPaystack">
                                             @csrf
-                                            @method('PUT')
-                                            <button href="#" class="text-warning btn btn-lg">↻</button>
+                                            <button href="#" class="text-warning btn btn-lg" onclick="payWithPaystack()">↻</button>
                                         </form>
                                     </td>
                                 @endif
@@ -65,25 +64,72 @@
                 <h6 class="m-0 font-weight-bold text-primary">Make New Subscription</h6>
             </div>
             <div class="card-body">
-                <form action="{{ route('api.users.subscriptions.store', $user) }}" method="POST" class="x-submit" data-then="reload">
+                <form action="{{ route('api.users.subscriptions.store', $user) }}" method="POST" class="x-submit" data-then="payWithPaystack" data-quietly="true">
                     @csrf
-                        <x-form.input name='date' type="date"/>
-                        <x-form.field>
-                            <x-form.label name="amount"/>
-                            <select name="amount" id="amount" class="form-control">
-                                <option value="1000">1000</option>
-                            </select>
-                        </x-form.field>
-                        <x-form.field>
-                            <x-form.label name="card"/>
-                            <select name="card" id="card" class="form-control">
-                                <option value="1000">***********8495</option>
-                                <option value="1000">***********3645</option>
-                                <option value="1000">***********1589</option>
-                            </select>
-                        </x-form.field>
-                        <x-form.button>Subscribe</x-form.button>
+                    <input name="email" type="hidden" id="email-address" value="{{ $user->email }}" >
+                    <x-form.input name='date' type="date" label="Date"/>
+                    <x-form.field>
+                        <x-form.label name="amount" label="Amount"/>
+                        <select name="" id="amount" class="form-control">
+                            <option>1000</option>
+                        </select>
+                    </x-form.field>
+                    <x-form.button>Subscribe</x-form.button>
                 </form>
+                <script src="https://js.paystack.co/v1/inline.js"></script>
+                <script>
+                    function payWithPaystack({data}) {
+                        let handler = PaystackPop.setup({
+                            key: @js(config('services.paystack.pk')), // Replace with your public key
+                            email: document.getElementById("email-address").value,
+                            amount: data.subscription.amount * 100,
+                            ref: data.subscription.reference, // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                            label: @js($user->name),
+                            metadata: {
+                                "date": document.getElementById("date").value
+                            },
+                            onClose: function(){
+                                swal({
+                                    title: "Something went wrong",
+                                    text: "",
+                                    icon: "warning",
+                                    buttons: {
+                                        tryAgain: {
+                                            text: "Try Again",
+                                            value: "try_again",
+                                        },
+                                        contactSupport: {
+                                            text: "Cancel",
+                                            value: "cancel",
+                                        },
+                                    },
+                                    dangerMode: true,
+                                }).then((value) => {
+                                    switch (value) {
+                                        case "try_again":
+                                            payWithPaystack({data});
+                                            break;
+                                        case "cancel":
+                                            location.reload()
+                                            break;
+                                        default:
+                                            location.reload()
+                                    }
+                                });
+                            },
+                            callback: function(response){
+                                swal({
+                                    title: "Subscription Successful!",
+                                    icon: "success",
+                                    button: "OK",
+                                });
+                                setTimeout(() => location.reload(), 3000)
+
+                            }
+                        });
+                        handler.openIframe();
+                    }
+                </script>
             </div>
         </div>
     @endif

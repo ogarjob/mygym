@@ -25,11 +25,10 @@ class StoreSubscriptionRequest extends FormRequest
     public function rules()
     {
         return [
-            'date'   => ['required', 'date', Rule::unique('subscriptions')->where('user_id', $this->user->id)],
-            'amount' => 'required',
+            'date' => ['required', 'date', Rule::unique('subscriptions')->where('user_id', $this->user->id)],
         ];
     }
-    
+
     public function message()
     {
         return [

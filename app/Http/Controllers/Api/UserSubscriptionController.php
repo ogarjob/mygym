@@ -10,8 +10,11 @@ class UserSubscriptionController extends Controller
 {
     public function store(StoreSubscriptionRequest $request, User $user)
     {
-        $user->subscriptions()->create($request->validated());
-
-        return Response::api('Subscription successful.');
+        $subscription = $user->subscriptions()->create($request->validated());
+//        dd($subscription);
+        return Response::api([
+            'message'   => "Payment Initialized",
+            'data'      => compact('subscription'),
+        ]);
     }
 }
