@@ -4,7 +4,6 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PaystackWebhookController;
-use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserSubscriptionController;
@@ -12,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
     Route::view('/login', 'auth.login')->name('login');
-    Route::post('/login', [AuthController::class, 'login']);
+//    Route::post('/login', [AuthController::class, 'login']);
     Route::get('/register', [RegisterController::class, 'create'])->name('register.create');
     Route::post('paystack/hook', PaystackWebhookController::class);
 
@@ -22,11 +21,6 @@ Route::middleware('auth')->group(function () {
     Route::redirect('/',      'dashboard');
     Route::view('/dashboard', 'users.dashboard')->name('dashboard');
     Route::get('/logout',     LogoutController::class)->name('logout');
-
-    Route::controller(PhotoController::class)->group(function () {
-        Route::put('users/photo/{user}',    'update')->name('users.photo.update');
-        Route::delete('users/photo/{user}', 'destroy')->name('users.photo.destroy');
-    });
 
 //    Route::controller(UserController::class)->group(function () {
 //        Route::name('users.')->group(function () {

@@ -40,7 +40,7 @@
                             </div> <!-- end col-->
                             <div class="col-sm-4">
                                 <div class="text-center mt-sm-0 mt-3 text-sm-end">
-                                    <form action="{{ route('users.photo.update', $user->id) }}" id="form-photo" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('api.users.photo.update', $user->id) }}" id="form-photo" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <label for="photo" class="btn btn-light"> Change Photo </label>
@@ -146,7 +146,7 @@
                                         <p>
                                             Click on the button below to posibly remove your profile photo.
                                         </p>
-                                        <form action="{{ route("api.users.destroy" , $user) }}" method="POST" class="x-submit" data-then="reload">
+                                        <form action="{{ route("api.users.photo.destroy" , $user) }}" method="POST" class="x-submit" data-then="reload">
                                             @csrf
                                             @method('DELETE')
                                             <x-form.button class="btn-danger btn-sm"  onclick="return confirm('Are you sure you want to remove your profile photo?')">Remove Photo</x-form.button>

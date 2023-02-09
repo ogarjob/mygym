@@ -66,7 +66,7 @@
             <div class="card-body">
                 <form action="{{ route('api.users.subscriptions.store', $user) }}" method="POST" class="x-submit" data-then="payWithPaystack" data-quietly="true">
                     @csrf
-                    <input name="email" type="hidden" id="email-address" value="{{ $user->email }}" >
+{{--                    <input name="email" type="hidden" id="email-address" value="{{ $user->email }}" >--}}
                     <x-form.input name='date' type="date" label="Date"/>
                     <x-form.field>
                         <x-form.label name="amount" label="Amount"/>
@@ -81,10 +81,10 @@
                     function payWithPaystack({data}) {
                         let handler = PaystackPop.setup({
                             key: @js(config('services.paystack.pk')), // Replace with your public key
-                            email: document.getElementById("email-address").value,
+                            email: data.subscription.user.email,
                             amount: data.subscription.amount * 100,
                             ref: data.subscription.reference, // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-                            label: @js($user->name),
+
                             metadata: {
                                 "date": document.getElementById("date").value
                             },

@@ -14,7 +14,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <hr class"my-3">
+                        <hr class="my-3">
                         <x-form.input name="name" label="Full Name" required />
                         <x-form.input name="email" label="Email" required />
                         <x-form.input name="username" label="Username" required />

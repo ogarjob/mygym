@@ -14,6 +14,8 @@ class Subscription extends Model
 
     protected $with = ['user'];
 
+    protected $touches = ['user'];
+
     public static function booted()
     {
         static::creating(function ($subscription) {
