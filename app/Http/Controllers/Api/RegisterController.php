@@ -26,6 +26,6 @@ class RegisterController extends Controller
         $user = User::create($attributes);
         auth()->login($user);
 
-        return Response::api('Your account has been registered successfully');
+        return Response::api('Registered successfully');
     }
 }
